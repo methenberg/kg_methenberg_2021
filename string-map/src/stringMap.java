@@ -5,16 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class stringMap {
-    public static HashMap<ArrayList[], Boolean> inventory = new HashMap(); //create the map to save the overlap pram of recursion to improve efficiency
+    private static HashMap<ArrayList[], Boolean> inventory = new HashMap<>(); //create the map to save the overlap pram of recursion to improve efficiency
     private ArrayList[] savelist = new ArrayList[2];
 
     public static void main(String[] args) {
-        String s1 = null, s2 = null;
         stringMap test = new stringMap();
-        test.strMap(s1,s2);     //test function
+        try {
+            test.strMap(args[0],args[1]);     //test function
+        }catch (Exception e){
+            throw new RuntimeException("wrong input");
+        }
     }
-
-    public boolean strMap(String s1, String s2) {
+    private boolean strMap(String s1, String s2) {
         if (s1.length() != s2.length()) { // one to one map size constrain
             return false;
         }
@@ -45,7 +47,7 @@ public class stringMap {
         return arrayCompare(ar1, ar2);
     }
 
-    public boolean arrayCompare(ArrayList<Integer> a1, ArrayList<Integer> a2) {   //recursion method, the core idea is to check whether the sub-array can be mapped
+    private boolean arrayCompare(ArrayList<Integer> a1, ArrayList<Integer> a2) {   //recursion method, the core idea is to check whether the sub-array can be mapped
         savelist[0] = a1;
         savelist[1] = a2;
         if (inventory.containsKey(savelist)) {        //if the recursion pram is already in map, directly return result
@@ -67,7 +69,7 @@ public class stringMap {
                     inventory.put(temp, true);       //put result of new pram in map
                     return true;
                 }
-            } else if (a1.get(i) == a2.get(0)) {
+            } else if (a1.get(i).equals(a2.get(0))) {
                 temp1.remove(i);
                 temp2.remove(0);
                 if (arrayCompare(temp1, temp2)) {
@@ -77,8 +79,6 @@ public class stringMap {
                     inventory.put(temp, true);
                     return true;
                 }
-            } else {
-
             }
         }
         savelist[0] = a1;
