@@ -11,7 +11,7 @@ public class stringMap {
     public static void main(String[] args) {
         stringMap test = new stringMap();
         try {
-            test.strMap(args[0],args[1]);     //test function
+            System.out.println(test.strMap(args[0],args[1]));     //test function
         }catch (Exception e){
             throw new RuntimeException("wrong input");
         }
